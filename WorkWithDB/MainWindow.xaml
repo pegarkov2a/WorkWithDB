@@ -1,0 +1,71 @@
+﻿<Window x:Class="WorkWithDB.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorkWithDB"
+        mc:Ignorable="d"
+        Title="WorkWithDB" Height="350" Width="525" Loaded="Window_Loaded">
+    <TabControl>
+        <TabItem Header="Пользователи">
+            <local:DataGrid 
+                x:Name="usersTable" 
+                AutoGenerateColumns="False" 
+                CanUserDeleteRows="False"
+                CanUserAddRows="False">
+                <DataGrid.RowValidationRules>
+                    <DataErrorValidationRule ValidationStep="UpdatedValue"/>
+                </DataGrid.RowValidationRules>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding UserName}"/>
+                    <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
+                    <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
+                    <DataGridComboBoxColumn
+                        Header="Обслуживающая компания" 
+                        x:Name="comboBoxCompanys"
+                        DisplayMemberPath="CompanyName"
+                        SelectedValuePath="Id"
+                        SelectedValueBinding="{Binding CompanyId}"/>
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить строку" Click="MenuItem_Click_AddUser"/>
+                        <MenuItem Header="Удалить" Click="MenuItem_Click_DelUser"/>                        
+                        <MenuItem Header="Сохранить" Click="MenuItem_Click_Save"/>
+                        <MenuItem Header="Загрузить" Click="MenuItem_Click_Load"/>                        
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </local:DataGrid>
+        </TabItem>
+        <TabItem Header="Компании">
+            <local:DataGrid 
+                x:Name="companysTable" 
+                AutoGenerateColumns="False" 
+                CanUserDeleteRows="False"
+                CanUserAddRows="False">
+                <DataGrid.RowValidationRules>
+                    <DataErrorValidationRule ValidationStep="UpdatedValue"/>
+                </DataGrid.RowValidationRules>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Компания" Binding="{Binding CompanyName}"/>
+                    <DataGridComboBoxColumn 
+                            x:Name="comboBoxContStat"
+                            Header="Статус контракта" 
+                            DisplayMemberPath="StatName"
+                            SelectedValuePath="Id"
+                            SelectedValueBinding="{Binding ContractStatId}"/>
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить строку" Click="MenuItem_Click_AddCompany"/>
+                        <MenuItem Header="Удалить" Click="MenuItem_Click_DelCompany"/>
+                        <MenuItem Header="Сохранить" Click="MenuItem_Click_Save"/>
+                        <MenuItem Header="Загрузить" Click="MenuItem_Click_Load"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </local:DataGrid>
+        </TabItem>
+    </TabControl>
+
+
+</Window>
